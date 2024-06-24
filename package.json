@@ -1,13 +1,13 @@
 {
   "name": "project-joe123-setup",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "bin/index.js",
   "scripts": {
     "test": "jest | pino-pretty",
     "inttest": "TEST_TYPE=integration jest | pino-pretty",
     "build": "rimraf dist && tsc",
     "test:cov": "jest --coverage",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-dev --respawn --transpileOnly --noEmit --project tsconfig.json -- src/index.ts' | pino-pretty",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node bin/index.ts' | pino-pretty",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "format": "prettier --write 'src/**/*.{js,ts,tsx,json,css,md}'",
@@ -43,6 +43,10 @@
     "typescript": "5.3"
   },
   "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^4.0.0",
     "@prisma/client": "^5.15.1",
     "@types/jest": "^29.5.12",
     "fastify": "^4.28.0"

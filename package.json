@@ -15,7 +15,7 @@
     "pretest": "docker-compose -f ./docker-compose-test.yaml up -d",
     "posttest": "docker-compose -f ./docker-compose-test.yaml down",
     "preinttest": "docker-compose -f ./docker-compose-test.yaml up -d",
-    "postinttest": "docker-compose -f ./docker-compose-test.yaml down",
+    "postinttest": "docker-compose -f ./docker-compose-test.yaml down"
   },
   "keywords": [],
   "author": "",

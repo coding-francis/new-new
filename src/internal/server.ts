@@ -1,9 +1,9 @@
 import fastify, { type FastifyInstance, type RouteOptions } from 'fastify';
 import config from '../config';
-import swagger from '@fastify/swagger'
+import swagger from '@fastify/swagger';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
-import swaggerUi from "@fastify/swagger-ui"
+import swaggerUi from '@fastify/swagger-ui';
 
 export interface Server<T> {
     start(port: number): Promise<void>;
@@ -67,9 +67,9 @@ class FastifyServer implements Server<FastifyInstance> {
      */
     public async start(port: number): Promise<void> {
         await this._app.ready();
-        this._app.swagger()
+        this._app.swagger();
 
-      const address=  await new Promise<string>((resolve, reject) => {
+        const address = await new Promise<string>((resolve, reject) => {
             this._app.listen({ port }, (err, address) => {
                 if (err) {
                     this._app.log.error(err);
@@ -80,7 +80,6 @@ class FastifyServer implements Server<FastifyInstance> {
         });
 
         this._app.log.info(`Server listening on ${address}`);
-
     }
 
     /**

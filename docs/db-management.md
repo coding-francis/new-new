@@ -1,3 +1,8 @@
+# Managing Database migrations
+
+Prisma has table migration package but we wull like to use a more robust tool that gives us confidence in our db migrations
+We use [Atlasgo](https://atlasgo.io/docs). It provides both declarative and versioned migration. It also makes migration in production done with confidence. 
+
 ## Migration with atlas cheasheet
 
 - Inspect database

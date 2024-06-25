@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/app
     environment:
-      - DATABASE_URL='postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}?schema=public&`sslmode=disable`'
+      - DATABASE_URL='postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}?schema=public&sslmode=disable'
     depends_on:
       - db
 

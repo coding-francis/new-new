@@ -1,32 +1,40 @@
-name: Lint
+name: Linters
 
 on:
-  workflow_run:
-    workflows: ["Checkout and Setup"]
-    types:
-      - completed
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  lint:
+  checkout-setup:
+    name: Checkout Code
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        node-version: ['20']
-
+        matrix:
+            node-version: ['20']
+            steps:
+              - name: Checkout code
+                uses: actions/checkout@v2
+                
+  node-setup:
+    name: Setup Node Version
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      
-      - name: Download node_modules
-        uses: actions/download-artifact@v2
-        with:
-          name: node_modules
-          path: node_modules
-
-      - name: Run linter
+  
+  install-dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: npm install
+        
+  run-linters:
+    name: Run Linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run linters
         run: npm run lint

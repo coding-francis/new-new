@@ -12,9 +12,9 @@ jobs:
     strategy:
         matrix:
             node-version: ['20']
-            steps:
-              - name: Checkout code
-                uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
                 
   node-setup:
     name: Setup Node Version

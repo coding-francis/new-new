@@ -10,11 +10,11 @@ jobs:
     name: Checkout Code
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-            node-version: ['20']
-            steps:
-              - name: Checkout code
-                uses: actions/checkout@v2
+      matrix:
+        node-version: ['20']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
                 
   node-setup:
     name: Setup Node Version
@@ -29,6 +29,14 @@ jobs:
     name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Install dependencies
         run: npm install
         
@@ -36,5 +44,16 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Run linters
         run: npm run lint

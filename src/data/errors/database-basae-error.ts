@@ -1,12 +1,12 @@
-import MainAppError from "../../utils/exception";
+import MainAppError from '../../utils/exception';
 
 /**
  * The base class for all database errors in the application. This will be very helpful in the service layer to catch all database errors and handle them accordingly.
- * 
+ *
  * @abstract
  * @class DatabaseError
  * @extends {MainAppError}
- * 
+ *
  * @example
  * class FieldMustBeUniqueError extends DatabaseError {
  *    constructor(message: string = "Field must be unique") {

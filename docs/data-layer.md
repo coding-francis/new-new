@@ -70,5 +70,3 @@ export const initializeDataLayer = (
     };
 };
 ```
-
-By following these steps, you can effectively manage data layers in your application, ensuring a clean separation of concerns and ease of maintenance.

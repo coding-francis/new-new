@@ -1,6 +1,6 @@
-export interface Logger{
-    info(message: string): void;
-    error(message: string): void;
-    warn(message: string): void;
-    debug(message: string): void;
+export interface Logger {
+    info(message: string, obj: object): void;
+    error(message: string, obj: object): void;
+    warn(message: string, obj: object): void;
+    debug(message: string, obj: object): void;
 }

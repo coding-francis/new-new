@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-export interface DataBase <T>{
+export interface DataBase<T> {
     connect(): Promise<void>;
     disconnect(): Promise<void>;
     interface: T;
 }
 
-class PrismaDatabase  implements DataBase<PrismaClient>{
+class PrismaDatabase implements DataBase<PrismaClient> {
     private prisma: PrismaClient;
 
     constructor(dbUrl: string) {
@@ -23,11 +23,9 @@ class PrismaDatabase  implements DataBase<PrismaClient>{
         await this.prisma.$disconnect();
     }
 
-    public get interface () {
+    public get interface(): PrismaClient {
         return this.prisma;
     }
-
-
 }
 
 export default PrismaDatabase;

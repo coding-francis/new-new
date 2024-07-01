@@ -1,5 +1,5 @@
 import { DataLayer } from '../data';
-import { InvalidInputError } from '../data/errors';
+import { InvalidInputError, RecordNotFoundError } from '../data/errors';
 import { BaseServiceLayerError, DataValidationError } from './errors';
 import { initializeServices } from './initializer';
 
@@ -117,6 +117,56 @@ describe('UserService', () => {
                     password,
                 })
             ).rejects.toBeInstanceOf(DataValidationError);
+        });
+    });
+
+    describe('getUserById', () => {
+        test('Should get user by id', async () => {
+            //Arrange
+            const { services, dataLayer } = expect.getState();
+
+            const email = '';
+            const name = 'John Doe';
+            const id = 1;
+
+            const expectedUser = {
+                email,
+                id,
+                name,
+            };
+
+            jest.spyOn(
+                (dataLayer as DataLayer).UserDataLayer,
+                'getUserById'
+            ).mockResolvedValueOnce({
+                id,
+                name,
+                email,
+                password: '123',
+            });
+
+            //Act
+            const user = await services.UserService.getUserById(id);
+
+            //Assert
+            expect(user.toJSON()).toEqual(expectedUser);
+        });
+
+        test('Should throw `BaseServiceLayerError` when DatabaseError is thrown', () => {
+            //Arrange
+            const { services, dataLayer } = expect.getState();
+
+            const id = 1;
+
+            jest.spyOn(
+                (dataLayer as DataLayer).UserDataLayer,
+                'getUserById'
+            ).mockRejectedValue(new RecordNotFoundError('Invalid input'));
+
+            //Act and Assert
+            expect(services.UserService.getUserById(id)).rejects.toBeInstanceOf(
+                BaseServiceLayerError
+            );
         });
     });
 });

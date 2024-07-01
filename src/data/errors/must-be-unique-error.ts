@@ -1,4 +1,4 @@
-import DatabaseError from './database-basae-error';
+import DatabaseError from './database-base-error';
 
 /**
  * Error class for fields that must be unique

@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client/extension';
 import { DataBase } from '../internal/database';
 import { Logger } from '../internal/logger';
-import UserDataLayer from './user-data-layer';
+import UserData from './user-data-layer';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import DatabaseError from './errors/database-basae-error';
+import DatabaseError from './errors/database-base-error';
 
-describe('Test UserDataLayer', () => {
+describe('Test UserData', () => {
     beforeEach(() => {
         const db: DataBase<PrismaClient> = {
             interface: {
@@ -34,15 +34,15 @@ describe('Test UserDataLayer', () => {
             warn: jest.fn(),
             debug: jest.fn(),
         };
-        const userDataLayer = new UserDataLayer(db, logger);
+        const userData = new UserData(db, logger);
 
-        expect.setState({ userDataLayer });
+        expect.setState({ userData });
     });
 
     test('Should return user information when no error is thrown', async () => {
-        const userDataLayer = expect.getState().userDataLayer;
+        const userData = expect.getState().userData;
 
-        const user = await userDataLayer.getUserById(1);
+        const user = await userData.getUserById(1);
 
         expect(user).toEqual({
             id: 1,
@@ -50,34 +50,31 @@ describe('Test UserDataLayer', () => {
             email: 'example@gmail.com',
             password: '123132',
         });
-        expect(userDataLayer.db.interface.user.findUnique).toHaveBeenCalledWith(
-            { where: { id: 1 } }
-        );
+        expect(userData.db.interface.user.findUnique).toHaveBeenCalledWith({
+            where: { id: 1 },
+        });
     });
 
     test('Should return error when error is thrown', async () => {
-        const userDataLayer = expect.getState().userDataLayer;
+        const userData = expect.getState().userData;
         const error = new PrismaClientKnownRequestError(
             'Record does not exist',
             { code: 'P2001', clientVersion: '2.20.0', meta: { target: ['id'] } }
         );
-        jest.spyOn(
-            userDataLayer.db.interface.user,
-            'findUnique'
-        ).mockRejectedValue(error);
+        jest.spyOn(userData.db.interface.user, 'findUnique').mockRejectedValue(
+            error
+        );
 
-        expect(userDataLayer.getUserById(1)).rejects.toBeInstanceOf(
-            DatabaseError
-        );
-        expect(userDataLayer.db.interface.user.findUnique).toHaveBeenCalledWith(
-            { where: { id: 1 } }
-        );
+        expect(userData.getUserById(1)).rejects.toBeInstanceOf(DatabaseError);
+        expect(userData.db.interface.user.findUnique).toHaveBeenCalledWith({
+            where: { id: 1 },
+        });
     });
 
     test('Should return user created information when no error is thrown', async () => {
-        const userDataLayer = expect.getState().userDataLayer;
+        const userData = expect.getState().userData;
 
-        const user = await userDataLayer.createUser(
+        const user = await userData.createUser(
             'test',
             'example@gmail.com',
             '123212'
@@ -89,7 +86,7 @@ describe('Test UserDataLayer', () => {
             email: 'example@gmail.com',
             password: '123212',
         });
-        expect(userDataLayer.db.interface.user.create).toHaveBeenCalledWith({
+        expect(userData.db.interface.user.create).toHaveBeenCalledWith({
             data: {
                 name: 'test',
                 email: 'example@gmail.com',
@@ -99,20 +96,20 @@ describe('Test UserDataLayer', () => {
     });
 
     test('Should return error when error is thrown', async () => {
-        const userDataLayer = expect.getState().userDataLayer;
+        const userData = expect.getState().userData;
         const error = new PrismaClientKnownRequestError(
             'Unique constraint violated',
             { code: 'P2002', clientVersion: '2.20.0', meta: { target: ['id'] } }
         );
-        jest.spyOn(userDataLayer.db.interface.user, 'create').mockRejectedValue(
+        jest.spyOn(userData.db.interface.user, 'create').mockRejectedValue(
             error
         );
 
         expect(
-            userDataLayer.createUser('test', 'example@test.com', '123212')
+            userData.createUser('test', 'example@test.com', '123212')
         ).rejects.toBeInstanceOf(DatabaseError);
 
-        expect(userDataLayer.db.interface.user.create).toHaveBeenCalledWith({
+        expect(userData.db.interface.user.create).toHaveBeenCalledWith({
             data: {
                 name: 'test',
                 email: 'example@test.com',

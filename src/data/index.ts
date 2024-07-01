@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client/extension';
 import { DataBase } from '../internal/database';
-import UserDataLayer from './user-data-layer';
 import { Logger } from '../internal/logger';
+import UserData, { UserDataLayer } from './user-data-layer';
 
 export interface DataLayer {
     UserDataLayer: UserDataLayer;
@@ -25,6 +25,6 @@ export const initializeDataLayer = (
     logger: Logger
 ): DataLayer => {
     return {
-        UserDataLayer: new UserDataLayer(db, logger),
+        UserDataLayer: new UserData(db, logger),
     };
 };

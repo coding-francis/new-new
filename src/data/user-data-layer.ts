@@ -3,9 +3,17 @@ import { PrismaClient, User } from '@prisma/client';
 import { Logger } from '../internal/logger';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { InternalDbError } from './errors/internal-db-error';
-import { handlePrismaClientKnownRequestError } from './errors';
+import {
+    handlePrismaClientKnownRequestError,
+    RecordNotFoundError,
+} from './errors';
 
-export default class UserDataLayer {
+export interface UserDataLayer {
+    getUserById(id: number): Promise<User>;
+    createUser(name: string, email: string, password: string): Promise<User>;
+}
+
+export default class UserData implements UserDataLayer {
     constructor(
         private readonly db: DataBase<PrismaClient>,
         private readonly logger: Logger
@@ -13,7 +21,16 @@ export default class UserDataLayer {
 
     public async getUserById(id: number) {
         try {
-            return await this.db.interface.user.findUnique({ where: { id } });
+            const user = await this.db.interface.user.findUnique({
+                where: { id },
+            });
+            if (!user) {
+                throw new RecordNotFoundError(
+                    `User with id ${id} does not exist`
+                );
+            }
+
+            return user;
         } catch (error) {
             this.logger.error('Error while creating user', error as object);
             if (error instanceof PrismaClientKnownRequestError) {

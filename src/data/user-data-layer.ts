@@ -32,7 +32,10 @@ export default class UserData implements UserDataLayer {
 
             return user;
         } catch (error) {
-            this.logger.error('Error while creating user', error as object);
+            this.logger.error(
+                `Error while finding user with id ${id}`,
+                error as object
+            );
             if (error instanceof PrismaClientKnownRequestError) {
                 const err = handlePrismaClientKnownRequestError(error);
                 throw err;

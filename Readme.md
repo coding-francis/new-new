@@ -1,5 +1,3 @@
-Here's the revised main README:
-
 # Project John Doe
 
 - [DATABASE MANAGEMENT](docs/db-management.md)

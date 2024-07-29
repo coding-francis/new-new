@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  setup:
-    name: Setup
+  run-unit-tests:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,23 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-  run-unit-tests:
-    name: Run Unit Tests
-    runs-on: ubuntu-latest
-    needs: setup
-    strategy:
-      matrix:
-        node-version: [20]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Run unit tests
         run: npm run test

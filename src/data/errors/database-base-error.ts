@@ -15,8 +15,10 @@ import MainAppError from '../../utils/exception';
  * }
  *
  */
-export default abstract class DatabaseError extends MainAppError {
+export abstract class DatabaseError extends MainAppError {
     constructor(message: string, name: string) {
         super(message, name, 'DATA_LAYER');
     }
 }
+
+export default DatabaseError;

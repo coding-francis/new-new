@@ -22,6 +22,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/lodash": "^4.17.6",
     "@types/node": "^20.14.8",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
@@ -49,7 +50,9 @@
     "@fastify/swagger-ui": "^4.0.0",
     "@prisma/client": "^5.15.1",
     "@types/jest": "^29.5.12",
-    "fastify": "^4.28.0"
+    "fastify": "^4.28.0",
+    "lodash": "^4.17.21",
+    "zod": "^3.23.8"
   },
   "engines": {
     "node": "20"

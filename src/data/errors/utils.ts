@@ -1,5 +1,5 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import DatabaseError from './database-basae-error';
+import DatabaseError from './database-base-error';
 import { RecordNotFoundError } from './record-not-found';
 import { InternalDbError } from './internal-db-error';
 import { FieldMustBeUniqueError } from './must-be-unique-error';

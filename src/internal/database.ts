@@ -23,7 +23,7 @@ class PrismaDatabase implements DataBase<PrismaClient> {
         await this.prisma.$disconnect();
     }
 
-    public get interface() {
+    public get interface(): PrismaClient {
         return this.prisma;
     }
 }

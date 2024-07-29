@@ -8,7 +8,7 @@ const config:Config = {
     testMatch: testType === "integration" ? ["**/tests/integration/**/*.(test|spec).ts"] : ['/**/src/**/?(*.)+(spec|test).ts?(x)'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     coverageDirectory:"./coverage",
-    maxWorkers: 1,
+    maxWorkers: 3,
 };
 
 export default config

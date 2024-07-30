@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import { Resource } from '.';
 
-export type UserResourceType = {
+type UserResourceType = {
     id: number;
     name: string | null;
     email: string;
@@ -17,15 +17,6 @@ export class UserResource implements Resource<UserResourceType> {
             email: this.user.email,
         };
     }
-
-    public static schema = {
-        type: 'object',
-        properties: {
-            id: { type: 'number' },
-            name: { type: ['string', 'null'] },
-            email: { type: 'string' },
-        },
-    };
 }
 
 export default UserResource;

@@ -1,4 +1,4 @@
-import MainAppError from '../../utils/exception.ts';
+import MainAppError from '../../utils/exception';
 
 /**
  * The base class for all database errors in the application. This will be very helpful in the service layer to catch all database errors and handle them accordingly.

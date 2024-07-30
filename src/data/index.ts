@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client/extension';
-import { DataBase } from '../internal/database.ts';
-import { Logger } from '../internal/logger.ts';
-import UserData, { UserDataLayer } from './user-data-layer.ts';
+import { DataBase } from '../internal/database';
+import { Logger } from '../internal/logger';
+import UserData, { UserDataLayer } from './user-data-layer';
 
 export interface DataLayer {
     UserDataLayer: UserDataLayer;

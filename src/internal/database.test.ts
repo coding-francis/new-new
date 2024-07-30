@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client/extension';
-import PrismaDatabase, { DataBase } from './database.ts';
+import PrismaDatabase, { DataBase } from './database';
 describe('PrismaDatabase', () => {
     beforeEach(() => {
         const db: DataBase<PrismaClient> = new PrismaDatabase(

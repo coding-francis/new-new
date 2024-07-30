@@ -2,7 +2,6 @@
   "name": "project-joe123-setup",
   "version": "0.0.0",
   "main": "bin/index.js",
-  "type": "module",
   "scripts": {
     "test": "jest | pino-pretty",
     "inttest": "TEST_TYPE=integration jest | pino-pretty",

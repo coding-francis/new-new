@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client/extension';
-import { DataBase } from '../internal/database.ts';
-import { Logger } from '../internal/logger.ts';
-import UserData from './user-data-layer.ts';
+import { DataBase } from '../internal/database';
+import { Logger } from '../internal/logger';
+import UserData from './user-data-layer';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import DatabaseError from './errors/database-base-error.ts';
+import DatabaseError from './errors/database-base-error';
 
 describe('Test UserData', () => {
     beforeEach(() => {

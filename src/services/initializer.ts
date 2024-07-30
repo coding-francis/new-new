@@ -1,7 +1,7 @@
-import { DataLayer } from '../data/index.ts';
+import { DataLayer } from '../data';
 import { pick } from 'lodash';
-import { UserService, UserServiceLayer } from './user-service.ts';
-import { Logger } from '../internal/logger.ts';
+import { UserService, UserServiceLayer } from './user-service';
+import { Logger } from '../internal/logger';
 
 export interface Service {
     UserService: UserServiceLayer;

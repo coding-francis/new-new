@@ -1,4 +1,4 @@
-import DatabaseError from './database-base-error.ts';
+import DatabaseError from './database-base-error';
 
 /**
  * Error class for record not found errors

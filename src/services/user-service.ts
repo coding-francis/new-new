@@ -1,8 +1,8 @@
 import z from 'zod';
-import { DataLayer } from '../data/index.ts';
-import { handleServiceError } from './errors/utils.ts';
-import { UserResource } from './resource/index.ts';
-import { Logger } from '../internal/logger.ts';
+import { DataLayer } from '../data';
+import { handleServiceError } from './errors/utils';
+import { UserResource } from './resource';
+import { Logger } from '../internal/logger';
 
 const createUserZodSchema = z.object({
     name: z.string().min(1),
@@ -36,8 +36,8 @@ export class UserService implements UserServiceLayer {
             return new UserResource(user);
         } catch (error) {
             this.logger.error(
-                error as object,
-                `Error occurred while creating user in data layer`
+                `Error occurred while creating user in data layer`,
+                error as object
             );
             const err = handleServiceError(error as Error);
 
@@ -51,8 +51,8 @@ export class UserService implements UserServiceLayer {
             return new UserResource(user);
         } catch (error) {
             this.logger.error(
-                error as object,
-                `Error occurred while getting user with id ${id} in data layer`
+                `Error occurred while getting user with id ${id} in data layer`,
+                error as object
             );
             const err = handleServiceError(error as Error);
             throw err;

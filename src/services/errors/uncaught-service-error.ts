@@ -1,4 +1,4 @@
-import { BaseServiceLayerError } from './base-error.ts';
+import { BaseServiceLayerError } from '.';
 
 export class UncaughtServiceError extends BaseServiceLayerError {
     constructor(message = 'Unidentified error occured') {

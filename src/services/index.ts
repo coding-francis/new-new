@@ -1,2 +1,2 @@
-export * from './initializer.ts';
-export * from './user-service.ts';
+export * from './initializer';
+export * from './user-service';

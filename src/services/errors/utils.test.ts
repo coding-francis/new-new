@@ -3,11 +3,11 @@ import {
     InternalDbError,
     RecordNotFoundError,
     FieldMustBeUniqueError,
-} from '../../data/errors/index.ts';
-import { DataValidationError } from './data-validation-error.ts';
-import { ResourceNotFoundServiceError } from './resource-not-found-error.ts';
-import { UncaughtServiceError } from './uncaught-service-error.ts';
-import { handleServiceError } from './utils.ts';
+} from '../../data/errors';
+import { DataValidationError } from './data-validation-error';
+import { ResourceNotFoundServiceError } from './resource-not-found-error';
+import { UncaughtServiceError } from './uncaught-service-error';
+import { handleServiceError } from './utils';
 
 describe('Utils - handleServiceError', () => {
     test('Should return `ResourceNotFoundServiceError` when `RecordNotFoundError` is thrown', () => {

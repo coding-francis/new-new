@@ -1,12 +1,12 @@
-import { DataBase } from '../internal/database.ts';
+import { DataBase } from '../internal/database';
 import { PrismaClient, User } from '@prisma/client';
-import { Logger } from '../internal/logger.ts';
+import { Logger } from '../internal/logger';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { InternalDbError } from './errors/internal-db-error.ts';
+import { InternalDbError } from './errors/internal-db-error';
 import {
     handlePrismaClientKnownRequestError,
     RecordNotFoundError,
-} from './errors/index.ts';
+} from './errors';
 
 export interface UserDataLayer {
     getUserById(id: number): Promise<User>;
@@ -33,8 +33,8 @@ export default class UserData implements UserDataLayer {
             return user;
         } catch (error) {
             this.logger.error(
-                error as object,
-                `Error while finding user with id ${id}`
+                `Error while finding user with id ${id}`,
+                error as object
             );
             if (error instanceof PrismaClientKnownRequestError) {
                 const err = handlePrismaClientKnownRequestError(error);
@@ -55,7 +55,7 @@ export default class UserData implements UserDataLayer {
             });
             return user;
         } catch (error) {
-            this.logger.error(error as object, 'Error while creating user');
+            this.logger.error('Error while creating user', error as object);
             if (error instanceof PrismaClientKnownRequestError) {
                 const err = handlePrismaClientKnownRequestError(error);
                 throw err;

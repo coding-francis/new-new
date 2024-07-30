@@ -63,6 +63,8 @@ export function fetchUserByIdRouteOption(
             },
             response: {
                 200: UserResource.schema,
+                404: HttpNotFoundError.schema,
+                500: HttpServerError.schema,
             },
         },
     };

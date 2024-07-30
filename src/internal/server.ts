@@ -1,4 +1,11 @@
-import fastify, { type FastifyInstance, type RouteOptions } from 'fastify';
+import fastify, {
+    RawReplyDefaultExpression,
+    RawRequestDefaultExpression,
+    RawServerDefault,
+    RouteGenericInterface,
+    type FastifyInstance,
+    type RouteOptions,
+} from 'fastify';
 import config from '../config';
 import swagger from '@fastify/swagger';
 import cors from '@fastify/cors';
@@ -10,10 +17,19 @@ export interface Server<T> {
     app: T;
 }
 
-class FastifyServer implements Server<FastifyInstance> {
+class FastifyServer<T extends RouteGenericInterface>
+    implements Server<FastifyInstance>
+{
     private _app: FastifyInstance;
 
-    constructor(routes: RouteOptions[]) {
+    constructor(
+        routes: RouteOptions<
+            RawServerDefault,
+            RawRequestDefaultExpression,
+            RawReplyDefaultExpression,
+            T
+        >[]
+    ) {
         this._app = fastify({
             logger: true,
         });

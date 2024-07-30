@@ -1,9 +1,9 @@
+import { initializeRestHandlers } from '../src/app/rest/index';
+import { initializeDataLayer } from '../src/data';
+import PrismaDatabase from '../src/internal/database';
+import { appLogger } from '../src/internal/logger';
 import FastifyServer from '../src/internal/server';
-import { initializeRestHandlers } from './app/rest/index';
-import { initializeDataLayer } from './data/index';
-import PrismaDatabase from './internal/database';
-import { appLogger } from './internal/logger';
-import { initializeServices } from './services/index';
+import { initializeServices } from '../src/services';
 
 const prismaInstance = new PrismaDatabase('');
 

@@ -1,9 +1,9 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { RecordNotFoundError } from './record-not-found';
-import { handlePrismaClientKnownRequestError } from './utils';
-import { FieldMustBeUniqueError } from './must-be-unique-error';
-import { InvalidInputError } from './invalid-input-error';
-import { InternalDbError } from './internal-db-error';
+import { RecordNotFoundError } from './record-not-found.ts';
+import { handlePrismaClientKnownRequestError } from './utils.ts';
+import { FieldMustBeUniqueError } from './must-be-unique-error.ts';
+import { InvalidInputError } from './invalid-input-error.ts';
+import { InternalDbError } from './internal-db-error.ts';
 
 describe('utils', () => {
     test('Should return RecordNotFoundError when code is `P2001`', () => {

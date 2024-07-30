@@ -1,9 +1,9 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import DatabaseError from './database-base-error';
-import { RecordNotFoundError } from './record-not-found';
-import { InternalDbError } from './internal-db-error';
-import { FieldMustBeUniqueError } from './must-be-unique-error';
-import { InvalidInputError } from './invalid-input-error';
+import DatabaseError from './database-base-error.ts';
+import { RecordNotFoundError } from './record-not-found.ts';
+import { InternalDbError } from './internal-db-error.ts';
+import { FieldMustBeUniqueError } from './must-be-unique-error.ts';
+import { InvalidInputError } from './invalid-input-error.ts';
 
 function getFieldFromMeta(meta: PrismaClientKnownRequestError['meta']): string {
     let fields = '';

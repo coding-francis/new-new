@@ -2,4 +2,4 @@ export interface Resource<T> {
     toJSON(): T;
 }
 
-export * from './user-resource';
+export * from './user-resource.ts';

@@ -1,4 +1,4 @@
-import MainAppError from '../../utils/exception';
+import MainAppError from '../../utils/exception.ts';
 
 /**
  * Base error class for service layer. All service layer errors should extend this class. This will help in identifying the source of the error and handling them in the app later

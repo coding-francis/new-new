@@ -27,6 +27,8 @@
     "strictBindCallApply": false,                      /* Check that the arguments for 'bind', 'call', and 'apply' methods match the original function. */
     "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
     "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
+    "noEmit": true,                        /* Only output d.ts files and not the compiled JavaScript files. */
+    "allowImportingTsExtensions": true,         /* Allow importing .ts files as well as .d.ts files. */
 
   },
   "exclude": ["node_modules", "build", "dist"],

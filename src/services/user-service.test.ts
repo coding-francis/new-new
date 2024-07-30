@@ -1,7 +1,10 @@
-import { DataLayer } from '../data';
-import { InvalidInputError, RecordNotFoundError } from '../data/errors';
-import { BaseServiceLayerError, DataValidationError } from './errors';
-import { initializeServices } from './initializer';
+import { DataLayer } from '../data/index.ts';
+import {
+    InvalidInputError,
+    RecordNotFoundError,
+} from '../data/errors/index.ts';
+import { BaseServiceLayerError, DataValidationError } from './errors/index.ts';
+import { initializeServices } from './initializer.ts';
 
 describe('UserService', () => {
     beforeEach(() => {

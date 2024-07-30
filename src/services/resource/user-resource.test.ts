@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import UserResource from './user-resource';
+import UserResource from './user-resource.ts';
 
 describe('Test user resource', () => {
     it('should return user resource', () => {

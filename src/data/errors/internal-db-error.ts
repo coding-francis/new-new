@@ -1,4 +1,4 @@
-import DatabaseError from './database-base-error';
+import DatabaseError from './database-base-error.ts';
 
 /**
  * Error class for internal database errors

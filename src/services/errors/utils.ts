@@ -3,11 +3,11 @@ import {
     DatabaseError,
     InternalDbError,
     RecordNotFoundError,
-} from '../../data/errors';
-import { BaseServiceLayerError } from '.';
-import { UncaughtServiceError } from './uncaught-service-error';
-import { DataValidationError } from './data-validation-error';
-import { ResourceNotFoundServiceError } from './resource-not-found-error';
+} from '../../data/errors/index.ts';
+import { BaseServiceLayerError } from './base-error.ts';
+import { UncaughtServiceError } from './uncaught-service-error.ts';
+import { DataValidationError } from './data-validation-error.ts';
+import { ResourceNotFoundServiceError } from './resource-not-found-error.ts';
 
 /**
  * This function will handle the error thrown from the data layer or zod and return the appropriate error to be thrown from the service layer.

@@ -56,6 +56,8 @@ export default function HandlerRouteOption(
         method: 'GET',
         url: '/users/:id',
         schema: {
+            description: 'Fetch user by id',
+            tags: ['User'],
             params: {
                 type: 'object',
                 properties: {

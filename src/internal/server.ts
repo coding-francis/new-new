@@ -54,6 +54,7 @@ class FastifyServer<T extends RouteGenericInterface>
                     title: config.appName,
                     version: '1.0.0',
                 },
+                tags: [{ name: 'User', description: 'User related endpoints' }],
                 servers: [
                     {
                         url: `http://localhost:${config.port}`,
@@ -71,6 +72,7 @@ class FastifyServer<T extends RouteGenericInterface>
             routePrefix: '/docs',
         });
 
+        //Register all the routes
         for (const route of routes) {
             this._app.route(route);
         }

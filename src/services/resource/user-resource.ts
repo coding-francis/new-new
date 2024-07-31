@@ -19,7 +19,10 @@ export class UserResource implements Resource<UserResourceType> {
     }
 
     public static schema = {
+        $id: 'User',
+        title: 'User',
         type: 'object',
+        required: ['id', 'email'],
         properties: {
             id: { type: 'number' },
             name: { type: ['string', 'null'] },

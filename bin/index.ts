@@ -4,7 +4,7 @@ import PrismaDatabase from '../src/internal/database';
 import { appLogger } from '../src/internal/logger';
 import FastifyServer from '../src/internal/server';
 import { initializeServices } from '../src/services';
-import { DatabaseConfig } from '../src/config';
+import config, { DatabaseConfig } from '../src/config';
 
 const prismaInstance = new PrismaDatabase(DatabaseConfig.DATABASE_URL);
 
@@ -14,7 +14,7 @@ async function main() {
     const servicesLayer = initializeServices(dataLayer, appLogger);
 
     const server = new FastifyServer(initializeRestHandlers(servicesLayer));
-    await server.start(3000);
+    await server.start(config.port);
 }
 
 main().catch(error => {

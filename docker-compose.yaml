@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "${APP_PORT}:3000"
     volumes:
       - ./src:/opt/app/src
       - ./bin:/opt/app/bin
@@ -16,6 +16,7 @@ services:
       - ./.env:/opt/app/.env
     environment:
       - DATABASE_URL=${DATABASE_URL}
+      - APP_PORT=${APP_PORT}
     depends_on:
       - db
 

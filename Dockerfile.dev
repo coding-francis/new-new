@@ -22,8 +22,5 @@ COPY ./bin ./bin
 COPY ./src ./src
 COPY ./tsconfig.json ./tsconfig.json
 
-# Expose the port
-EXPOSE 3000
-
 # Start the application
 CMD ["npm", "start"]

@@ -1,5 +1,6 @@
 const config = {
     appName: process.env.APP_NAME || 'My App',
+    port: Number(process.env.APP_PORT) || 3000,
 };
 
 export class DatabaseConfig {

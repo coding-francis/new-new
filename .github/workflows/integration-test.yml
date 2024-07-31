@@ -12,7 +12,7 @@ env:
   CI: true
   DATABASE_PASSWORD: randompassword
   DATABASE_NAME: testdb
-  DATABASE_URL: postgres://postgres:randompassword@localhost:5432/testdb
+  DATABASE_URL: postgresql://postgres:testpassword@localhost:5433/testdb
   APP_PORT: 8000
 
 

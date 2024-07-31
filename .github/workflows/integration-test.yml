@@ -13,6 +13,8 @@ env:
   DATABASE_PASSWORD: randompassword
   DATABASE_NAME: testdb
   DATABASE_URL: postgres://postgres:randompassword@localhost:5432/testdb
+  APP_PORT: 8000
+
 
 jobs:
   run-integration-tests:

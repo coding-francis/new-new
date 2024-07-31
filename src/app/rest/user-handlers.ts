@@ -20,7 +20,7 @@ interface URLParams {
 //I thought of adding handler to RouteOptions but I felt I needed the handler as  a `controller` function seperated from the metadata. It involves you passing
 // the service twice and also typing the handler function twice. I think it's better to have the handler as a function and then pass it to the RouteOptions.
 //Always don't export handler functions, export the RouteOptions and the RouteHandler.
-function fetchUserById(
+function fetchUserByIdHandler(
     srv: Pick<Service, 'UserService'>
 ): RouteHandler<{ Params: URLParams }> {
     return async (req, res) => {
@@ -42,7 +42,8 @@ function fetchUserById(
     };
 }
 
-export function fetchUserByIdRouteOption(
+//Always export the RouteOptions as default.
+export default function HandlerRouteOption(
     srv: Pick<Service, 'UserService'>
 ): RouteOptions<
     RawServerDefault,
@@ -51,7 +52,7 @@ export function fetchUserByIdRouteOption(
     { Params: URLParams }
 > {
     return {
-        handler: fetchUserById(srv),
+        handler: fetchUserByIdHandler(srv),
         method: 'GET',
         url: '/users/:id',
         schema: {

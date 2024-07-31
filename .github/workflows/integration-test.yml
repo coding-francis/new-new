@@ -8,6 +8,12 @@ on:
     branches:
       - main
 
+env:
+  CI: true
+  DATABASE_PASSWORD: randompassword
+  DATABASE_NAME: testdb
+  DATABASE_URL: postgres://postgres:${{ env.DATABASE_PASSWORD }}@test_db:5432/${{ env.DATABASE_NAME }}
+
 jobs:
   run-integration-tests:
     name: Run Integration Tests

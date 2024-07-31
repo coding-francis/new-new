@@ -56,13 +56,13 @@ class FastifyServer<T extends RouteGenericInterface>
                 },
                 servers: [
                     {
-                        url: 'http://localhost:3000',
+                        url: `http://localhost:${config.port}`,
                         description: 'Development server',
                     },
                 ],
             },
             swagger: {
-                host: 'localhost:3000',
+                host: `localhost:${config.port}`,
                 schemes: ['http'],
             },
         });

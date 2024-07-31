@@ -86,7 +86,7 @@ class FastifyServer<T extends RouteGenericInterface>
         this._app.swagger();
 
         const address = await new Promise<string>((resolve, reject) => {
-            this._app.listen({ port }, (err, address) => {
+            this._app.listen({ port, host: '0.0.0.0' }, (err, address) => {
                 if (err) {
                     this._app.log.error(err);
                     reject(err);

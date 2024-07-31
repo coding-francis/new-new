@@ -5,6 +5,7 @@ import { initializeRestHandlers } from './initialize';
 
 describe('Test user handler', () => {
     beforeEach(() => {
+        //Mock service for testing
         const mockedService: Pick<Service, 'UserService'> = {
             UserService: {
                 getUserById: jest.fn(),
@@ -12,6 +13,8 @@ describe('Test user handler', () => {
             },
         };
 
+        //Initialize server. This is the same as the server in bin/index.ts just that service is mocked.
+        // The difference between this and integration test is that we are testing the handler in isolation by mocking the service.
         const server = new FastifyServer(initializeRestHandlers(mockedService));
         expect.setState({ mockedService, server });
     });

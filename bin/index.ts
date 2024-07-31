@@ -4,8 +4,9 @@ import PrismaDatabase from '../src/internal/database';
 import { appLogger } from '../src/internal/logger';
 import FastifyServer from '../src/internal/server';
 import { initializeServices } from '../src/services';
+import { DatabaseConfig } from '../src/config';
 
-const prismaInstance = new PrismaDatabase('');
+const prismaInstance = new PrismaDatabase(DatabaseConfig.DATABASE_URL);
 
 async function main() {
     await prismaInstance.connect();

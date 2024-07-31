@@ -1,14 +1,17 @@
-import {Config} from "jest"
+import { Config } from 'jest';
 
 const testType = process.env.TEST_TYPE;
 
-const config:Config = {
+const config: Config = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: testType === "integration" ? ["**/tests/integration/**/*.(test|spec).ts"] : ['/**/src/**/?(*.)+(spec|test).ts?(x)'],
+    testMatch:
+        testType === 'integration'
+            ? ['**/tests/integration/**/*.(test|spec).ts']
+            : ['/**/src/**/?(*.)+(spec|test).ts?(x)'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    coverageDirectory:"./coverage",
+    coverageDirectory: './coverage',
     maxWorkers: 3,
 };
 
-export default config
+export default config;

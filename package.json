@@ -12,9 +12,9 @@
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "format": "prettier --write 'src/**/*.{js,ts,tsx,json,css,md}'",
     "prisma:gen": "prisma generate",
-    "pretest": "docker-compose up test_db -d",
+    "pretest": "docker-compose up  -d test_db",
     "posttest": "docker-compose down",
-    "preinttest": "docker-compose up test_db -d",
+    "preinttest": "docker-compose up  -d test_db",
     "postinttest": "docker-compose down",
     "dev": "docker-compose up app db -d",
     "dev:stop": "docker-compose down"

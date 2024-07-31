@@ -53,7 +53,7 @@ export function fetchUserByIdRouteOption(
     return {
         handler: fetchUserById(srv),
         method: 'GET',
-        url: '/user/:id',
+        url: '/users/:id',
         schema: {
             params: {
                 type: 'object',

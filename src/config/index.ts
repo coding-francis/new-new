@@ -1,5 +1,5 @@
 const config = {
-    appName: process.env.APP_NAME || 'My App',
+    appName: process.env.APP_NAME ?? 'My App',
     port: Number(process.env.APP_PORT) || 8000,
 };
 

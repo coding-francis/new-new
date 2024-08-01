@@ -10,15 +10,15 @@ type UserResourceType = {
 export class UserResource implements Resource<UserResourceType> {
     constructor(private readonly user: User) {}
 
-    public toJSON() {
+    public toJSON(): UserResourceType {
         return {
-            id: this.user.id,
+            id: Number(this.user.id),
             name: this.user.name,
             email: this.user.email,
         };
     }
 
-    public static schema = {
+    public static readonly schema = {
         $id: 'User',
         title: 'User',
         type: 'object',

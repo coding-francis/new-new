@@ -5,6 +5,7 @@ const config = {
 
 export class DatabaseConfig {
     public static readonly DATABASE_URL = process.env.DATABASE_URL;
+    public static readonly TEST_DATABASE_URL = process.env.TEST_DATABASE_URL;
 }
 
 export default config;

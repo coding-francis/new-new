@@ -5,6 +5,7 @@ export interface Logger {
     error(obj: object, msg?: string, ...args: unknown[]): void;
     warn(obj: object, msg?: string, ...args: unknown[]): void;
     debug(obj: object, msg?: string, ...args: unknown[]): void;
+    child: (obj: object) => Logger;
 }
 
 const logger = pino({
@@ -16,4 +17,5 @@ export const appLogger: Logger = {
     error: logger.error.bind(logger),
     warn: logger.warn.bind(logger),
     debug: logger.debug.bind(logger),
+    child: logger.child.bind(logger),
 };

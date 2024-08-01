@@ -11,6 +11,7 @@ import swagger from '@fastify/swagger';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import swaggerUi from '@fastify/swagger-ui';
+import { Logger } from './logger';
 
 export interface Server<T> {
     start(port: number): Promise<void>;
@@ -28,10 +29,20 @@ class FastifyServer<T extends RouteGenericInterface>
             RawRequestDefaultExpression,
             RawReplyDefaultExpression,
             T
-        >[]
+        >[],
+        logger: Logger
     ) {
         this._app = fastify({
-            logger: true,
+            logger: {
+                child: logger.child.bind(logger),
+                debug: logger.debug.bind(logger),
+                error: logger.error.bind(logger),
+                fatal: logger.error.bind(logger),
+                info: logger.info.bind(logger),
+                trace: logger.debug.bind(logger),
+                warn: logger.warn.bind(logger),
+                level: 'info',
+            },
         });
 
         this._app.register(cors, {

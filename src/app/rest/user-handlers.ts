@@ -28,8 +28,10 @@ function fetchUserByIdHandler(
             const user = await srv.UserService.getUserById(
                 Number(req.params.id)
             );
+            req.log.info(`User with id ${req.params.id} fetched`);
             res.status(200).send(user);
         } catch (error) {
+            req.log.error(error);
             if (
                 error instanceof BaseServiceLayerError &&
                 error instanceof ResourceNotFoundServiceError

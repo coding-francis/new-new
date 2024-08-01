@@ -13,7 +13,10 @@ async function main() {
     const dataLayer = initializeDataLayer(prismaInstance, appLogger);
     const servicesLayer = initializeServices(dataLayer, appLogger);
 
-    const server = new FastifyServer(initializeRestHandlers(servicesLayer));
+    const server = new FastifyServer(
+        initializeRestHandlers(servicesLayer),
+        appLogger
+    );
     await server.start(config.port);
 }
 

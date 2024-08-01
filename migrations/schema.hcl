@@ -7,6 +7,11 @@ table "users" {
     column "id" {
         type = bigint
         null = false
+        identity {
+            generated = ALWAYS
+            start = 1
+            increment = 1      
+        }
     }
 
     column "name" {

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Users endpoint GET /users:id should return a user 1`] = `
+[
+  {
+    "level": 30,
+    "msg": "incoming request",
+    "req": {
+      "hostname": "localhost:80",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/users/1",
+    },
+    "reqId": "req-1",
+  },
+  {
+    "level": 30,
+    "msg": "User with id 1 fetched",
+    "reqId": "req-1",
+  },
+  {
+    "level": 30,
+    "msg": "request completed",
+    "reqId": "req-1",
+    "res": {
+      "statusCode": 200,
+    },
+  },
+]
+`;

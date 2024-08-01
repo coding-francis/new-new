@@ -14,9 +14,12 @@ datasource postgresql {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
-  id    Int     @id @default(autoincrement())
+  id    BigInt     @id @default(autoincrement()) @map("id")
   email String  @unique
   name  String?
   password String
+
+  @@map("users")
 }

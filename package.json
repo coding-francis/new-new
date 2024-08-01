@@ -4,7 +4,7 @@
   "main": "bin/index.js",
   "scripts": {
     "test": "jest | pino-pretty",
-    "inttest": "TEST_TYPE=integration jest | pino-pretty",
+    "inttest": "TEST_TYPE=integration jest",
     "build": "rimraf dist && tsc",
     "test:cov": "jest --coverage",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node bin/index.ts' | pino-pretty",
@@ -19,7 +19,7 @@
     "dev": "docker-compose up app db -d",
     "dev:stop": "docker-compose down",
     "db:migrate:test": "atlas schema apply --auto-approve -u postgresql://postgres:testpassword@localhost:5433/testdb?sslmode=disable --to file://migrations/schema.hcl",
-    "db:setup:test": "docker-compose up  -d test_db && npm run db:migrate:test"
+    "db:setup:test": "docker-compose up  -d test_db && sleep 1 && npm run db:migrate:test"
   },
   "keywords": [],
   "author": "",

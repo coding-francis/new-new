@@ -16,7 +16,7 @@ describe('server', () => {
             },
         };
 
-        const server = new FastifyServer([route]);
+        const server = new FastifyServer([route], false);
 
         expect.setState({ server });
     });

@@ -1,11 +1,11 @@
-import HttpBaseError from './http-base-error';
+import { HttpBaseError } from '../../../internal/server';
 
 export class HttpUnauthorizedError extends HttpBaseError {
     constructor(message: string, data?: object) {
         super(message, 'HttpUnauthorizedError', 401, data);
     }
 
-    public static schema = {
+    public static readonly schema = {
         $id: 'HttpUnauthorizedError',
         type: 'object',
         properties: {

@@ -1,11 +1,11 @@
-import HttpBaseError from './http-base-error';
+import { HttpBaseError } from '../../../internal/server';
 
 export class HttpBadError extends HttpBaseError {
     constructor(message: string, data?: object) {
         super(message, 'HttpBadError', 400, data);
     }
 
-    public static schema = {
+    public static readonly schema = {
         $id: 'HttpBadError',
         type: 'object',
         properties: {

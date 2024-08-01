@@ -1,11 +1,11 @@
-import HttpBaseError from './http-base-error';
+import { HttpBaseError } from '../../../internal/server';
 
 export class HttpPermissionDeniedError extends HttpBaseError {
     constructor(message: string, data?: object) {
         super(message, 'HttpPermissionDeniedError', 403, data);
     }
 
-    public static schema = {
+    public static readonly schema = {
         $id: 'HttpPermissionDeniedError',
         type: 'object',
         properties: {

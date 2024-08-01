@@ -12,6 +12,22 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import swaggerUi from '@fastify/swagger-ui';
 import { Logger } from './logger';
+import MainAppError from '../utils/exception';
+
+export abstract class HttpBaseError extends MainAppError {
+    public status: number;
+    public message: string;
+    public statusCode: number;
+    public data?: object;
+
+    constructor(message: string, name: string, status: number, data?: object) {
+        super(message, name, 'AppLayer.REST');
+        this.status = status;
+        this.message = message;
+        this.statusCode = status;
+        this.data = data;
+    }
+}
 
 export interface Server<T> {
     start(port: number): Promise<void>;
@@ -30,19 +46,37 @@ class FastifyServer<T extends RouteGenericInterface>
             RawReplyDefaultExpression,
             T
         >[],
-        logger: Logger
+        logger: Logger | boolean
     ) {
         this._app = fastify({
-            logger: {
-                child: logger.child.bind(logger),
-                debug: logger.debug.bind(logger),
-                error: logger.error.bind(logger),
-                fatal: logger.error.bind(logger),
-                info: logger.info.bind(logger),
-                trace: logger.debug.bind(logger),
-                warn: logger.warn.bind(logger),
-                level: 'info',
-            },
+            logger:
+                typeof logger === 'boolean'
+                    ? logger
+                    : {
+                          child: logger.child.bind(logger),
+                          debug: logger.debug.bind(logger),
+                          error: logger.error.bind(logger),
+                          fatal: logger.error.bind(logger),
+                          info: logger.info.bind(logger),
+                          trace: logger.debug.bind(logger),
+                          warn: logger.warn.bind(logger),
+                          level: 'info',
+                      },
+        });
+
+        this.app.setErrorHandler((error, req, res) => {
+            req.log.error(error);
+
+            if (error instanceof HttpBaseError) {
+                res.status(error.statusCode).send({
+                    message: error.message,
+                    data: error.data,
+                });
+            } else {
+                res.status(500).send({
+                    message: 'Internal server error',
+                });
+            }
         });
 
         this._app.register(cors, {

@@ -1,11 +1,11 @@
-import HttpBaseError from './http-base-error';
+import { HttpBaseError } from '../../../internal/server';
 
 export class HttpNotFoundError extends HttpBaseError {
     constructor(message: string, data?: object) {
         super(message, 'HttpNotFoundError', 404, data);
     }
 
-    public static schema = {
+    public static readonly schema = {
         $id: 'HttpNotFoundError',
         type: 'object',
         properties: {

@@ -15,7 +15,10 @@ describe('Test user handler', () => {
 
         //Initialize server. This is the same as the server in bin/index.ts just that service is mocked.
         // The difference between this and integration test is that we are testing the handler in isolation by mocking the service.
-        const server = new FastifyServer(initializeRestHandlers(mockedService));
+        const server = new FastifyServer(
+            initializeRestHandlers(mockedService),
+            true
+        );
         expect.setState({ mockedService, server });
     });
 
@@ -26,6 +29,7 @@ describe('Test user handler', () => {
             const user = {
                 id: 1,
                 name: 'John Doe',
+                email: 'test@test.com',
             };
 
             jest.spyOn(

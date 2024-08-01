@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "bin/index.js",
   "scripts": {
-    "test": "jest | pino-pretty",
+    "test": "jest",
     "inttest": "TEST_TYPE=integration jest",
     "build": "rimraf dist && tsc",
     "test:cov": "jest --coverage",

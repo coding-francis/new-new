@@ -33,6 +33,7 @@ describe('Test UserData', () => {
             info: jest.fn(),
             warn: jest.fn(),
             debug: jest.fn(),
+            child: jest.fn(),
         };
         const userData = new UserData(db, logger);
 

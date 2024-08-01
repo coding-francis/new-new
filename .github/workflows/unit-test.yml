@@ -35,5 +35,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install ariga/atlas-go
+        uses: ariga/setup-atlas@v0
+        
       - name: Run unit tests
         run: npm run test

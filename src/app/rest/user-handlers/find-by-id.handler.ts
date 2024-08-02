@@ -1,4 +1,4 @@
-import { Service } from '../../services';
+import { Service } from '../../../services';
 import {
     RawReplyDefaultExpression,
     RawRequestDefaultExpression,
@@ -6,12 +6,9 @@ import {
     RouteHandler,
     RouteOptions,
 } from 'fastify';
-import {
-    BaseServiceLayerError,
-    ResourceNotFoundServiceError,
-} from '../../services/errors';
-import { HttpNotFoundError, HttpServerError } from './exceptions';
-import { UserResource } from '../../services/resource';
+import { HttpNotFoundError, HttpServerError } from '../exceptions';
+import { UserResource } from '../../../services/resource';
+import { handleErrors } from '../utils';
 
 interface URLParams {
     id: string;
@@ -32,14 +29,8 @@ function fetchUserByIdHandler(
             res.status(200).send(user);
         } catch (error) {
             req.log.error(error);
-            if (
-                error instanceof BaseServiceLayerError &&
-                error instanceof ResourceNotFoundServiceError
-            ) {
-                throw new HttpNotFoundError(error.message, error.data);
-            }
-
-            throw new HttpServerError('Internal server error');
+            const httpError = handleErrors(error as Error);
+            throw httpError;
         }
     };
 }
@@ -51,7 +42,7 @@ export default function HandlerRouteOption(
     RawServerDefault,
     RawRequestDefaultExpression,
     RawReplyDefaultExpression,
-    { Params: URLParams }
+    { Params: URLParams; Body: unknown }
 > {
     return {
         handler: fetchUserByIdHandler(srv),

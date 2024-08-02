@@ -1,7 +1,11 @@
 import { pick } from 'lodash';
 import { Service } from '../../services/index';
-import fetchUserByIdRouteOption from './user-handlers';
+import createUserRouteOption from './user-handlers/create-user.handler';
+import fetchUserByIdRouteOption from './user-handlers/find-by-id.handler';
 
 export function initializeRestHandlers(srv: Service) {
-    return [fetchUserByIdRouteOption(pick(srv, 'UserService'))];
+    return [
+        createUserRouteOption(pick(srv, 'UserService')),
+        fetchUserByIdRouteOption(pick(srv, 'UserService')),
+    ];
 }

@@ -1,7 +1,7 @@
-import FastifyServer from '../../internal/server';
-import { Service } from '../../services';
-import { ResourceNotFoundServiceError } from '../../services/errors';
-import { initializeRestHandlers } from './initialize';
+import FastifyServer from '../../../internal/server';
+import { Service } from '../../../services';
+import { ResourceNotFoundServiceError } from '../../../services/errors';
+import fetchUserByIdRouteOptions from './find-by-id.handler';
 
 describe('Test user handler', () => {
     beforeEach(() => {
@@ -16,7 +16,7 @@ describe('Test user handler', () => {
         //Initialize server. This is the same as the server in bin/index.ts just that service is mocked.
         // The difference between this and integration test is that we are testing the handler in isolation by mocking the service.
         const server = new FastifyServer(
-            initializeRestHandlers(mockedService),
+            [fetchUserByIdRouteOptions(mockedService)],
             true
         );
         expect.setState({ mockedService, server });
@@ -37,9 +37,7 @@ describe('Test user handler', () => {
                 'getUserById'
             ).mockResolvedValue(user);
 
-            const response = await (
-                server as FastifyServer<{ Params: unknown }>
-            ).app.inject({
+            const response = await server.app.inject({
                 method: 'GET',
                 url: '/api/users/1',
             });
@@ -58,9 +56,7 @@ describe('Test user handler', () => {
                 new ResourceNotFoundServiceError('User not found')
             );
 
-            const response = await (
-                server as FastifyServer<{ Params: unknown }>
-            ).app.inject({
+            const response = await server.app.inject({
                 method: 'GET',
                 url: '/api/users/1',
             });
@@ -76,9 +72,7 @@ describe('Test user handler', () => {
                 'getUserById'
             ).mockRejectedValue(new Error('Internal server error'));
 
-            const response = await (
-                server as FastifyServer<{ Params: unknown }>
-            ).app.inject({
+            const response = await server.app.inject({
                 method: 'GET',
                 url: '/api/users/1',
             });

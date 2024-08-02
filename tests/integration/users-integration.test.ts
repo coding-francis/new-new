@@ -55,7 +55,7 @@ describe('Users endpoint', () => {
 
         const response = await server.app.inject({
             method: 'GET',
-            url: '/users/1',
+            url: '/api/users/1',
         });
 
         expect(response.statusCode).toBe(200);

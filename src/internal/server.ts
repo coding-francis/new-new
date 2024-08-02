@@ -2,7 +2,6 @@ import fastify, {
     RawReplyDefaultExpression,
     RawRequestDefaultExpression,
     RawServerDefault,
-    RouteGenericInterface,
     type FastifyInstance,
     type RouteOptions,
 } from 'fastify';
@@ -34,20 +33,17 @@ export interface Server<T> {
     app: T;
 }
 
-class FastifyServer<T extends RouteGenericInterface>
-    implements Server<FastifyInstance>
-{
+type CustomRouteOption<B, P> = RouteOptions<
+    RawServerDefault,
+    RawRequestDefaultExpression,
+    RawReplyDefaultExpression,
+    { Body: B; Params: P }
+>;
+
+class FastifyServer<B, P> implements Server<FastifyInstance> {
     private _app: FastifyInstance;
 
-    constructor(
-        routes: RouteOptions<
-            RawServerDefault,
-            RawRequestDefaultExpression,
-            RawReplyDefaultExpression,
-            T
-        >[],
-        logger: Logger | boolean
-    ) {
+    constructor(routes: CustomRouteOption<B, P>[], logger: Logger | boolean) {
         this._app = fastify({
             logger:
                 typeof logger === 'boolean'

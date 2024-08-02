@@ -9,7 +9,7 @@ exports[`Users endpoint GET /users:id should return a user 1`] = `
       "hostname": "localhost:80",
       "method": "GET",
       "remoteAddress": "127.0.0.1",
-      "url": "/users/1",
+      "url": "/api/users/1",
     },
     "reqId": "req-1",
   },

@@ -1,9 +1,4 @@
-import type {
-    FastifyRequest,
-    FastifyReply,
-    RouteOptions,
-    RouteGenericInterface,
-} from 'fastify';
+import type { FastifyRequest, FastifyReply, RouteOptions } from 'fastify';
 
 import FastifyServer from './server';
 describe('server', () => {
@@ -17,13 +12,11 @@ describe('server', () => {
         };
 
         const server = new FastifyServer([route], false);
-
         expect.setState({ server });
     });
 
     test('Expert server to receive basic GET /health and return ok', async () => {
-        const server = expect.getState()
-            .server as FastifyServer<RouteGenericInterface>;
+        const server = expect.getState().server;
 
         const response = await server.app.inject({
             method: 'GET',

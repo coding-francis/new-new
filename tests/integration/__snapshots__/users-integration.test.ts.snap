@@ -28,3 +28,37 @@ exports[`Users endpoint GET /users:id should return a user 1`] = `
   },
 ]
 `;
+
+exports[`Users endpoint POST /users should create and return a user created: logs 1`] = `
+[
+  {
+    "level": 30,
+    "msg": "incoming request",
+    "req": {
+      "hostname": "localhost:80",
+      "method": "POST",
+      "remoteAddress": "127.0.0.1",
+      "url": "/api/users",
+    },
+    "reqId": "req-1",
+  },
+  {
+    "level": 30,
+    "msg": "User with id",
+    "reqId": "req-1",
+    "user": {
+      "email": "email@test.com",
+      "name": "John Doe",
+      "password": "password",
+    },
+  },
+  {
+    "level": 30,
+    "msg": "request completed",
+    "reqId": "req-1",
+    "res": {
+      "statusCode": 201,
+    },
+  },
+]
+`;

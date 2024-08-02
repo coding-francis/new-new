@@ -14,6 +14,10 @@ export function getMockLogger(): [Logger, string[]] {
                 delete data.hostname;
                 delete data.pid;
 
+                //user.id is unpredictable
+                if ('user' in data && 'id' in data.user) {
+                    delete data.user.id;
+                }
                 logs.push(data);
             },
         }

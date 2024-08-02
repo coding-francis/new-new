@@ -9,9 +9,9 @@ export class HttpPermissionDeniedError extends HttpBaseError {
         $id: 'HttpPermissionDeniedError',
         type: 'object',
         properties: {
-            name: { type: 'string' },
-            message: { type: 'string' },
-            statusCode: { type: 'number' },
+            name: { type: 'string', example: 'HttpPermissionDeniedError' },
+            message: { type: 'string', example: 'Permission denied' },
+            statusCode: { type: 'number', example: 403 },
             data: { type: 'object' },
         },
     };

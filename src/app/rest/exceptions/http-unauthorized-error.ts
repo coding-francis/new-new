@@ -9,9 +9,9 @@ export class HttpUnauthorizedError extends HttpBaseError {
         $id: 'HttpUnauthorizedError',
         type: 'object',
         properties: {
-            name: { type: 'string' },
-            message: { type: 'string' },
-            statusCode: { type: 'number' },
+            name: { type: 'string', example: 'HttpUnauthorizedError' },
+            message: { type: 'string', example: 'Unauthorized' },
+            statusCode: { type: 'number', example: 401 },
             data: { type: 'object' },
         },
     };

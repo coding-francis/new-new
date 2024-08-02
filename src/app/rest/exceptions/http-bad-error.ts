@@ -12,7 +12,7 @@ export class HttpBadError extends HttpBaseError {
             name: { type: 'string', example: 'HttpBadError' },
             message: { type: 'string', example: 'Bad Request' },
             statusCode: { type: 'number', example: 400 },
-            data: { type: 'object' },
+            data: { type: 'object', example: { name: ['Field is required'] } },
         },
     };
 }

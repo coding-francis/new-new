@@ -24,9 +24,17 @@ export class UserResource implements Resource<UserResourceType> {
         type: 'object',
         required: ['id', 'email'],
         properties: {
-            id: { type: 'number' },
-            name: { type: ['string', 'null'] },
-            email: { type: 'string' },
+            id: { type: 'number', example: 1, description: 'User ID' },
+            name: {
+                type: 'string',
+                example: 'John Doe',
+                description: 'User name',
+            },
+            email: {
+                type: 'string',
+                example: 'xxx@xxxx.com',
+                description: 'User email',
+            },
         },
     };
 }

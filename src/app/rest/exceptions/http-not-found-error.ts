@@ -9,9 +9,9 @@ export class HttpNotFoundError extends HttpBaseError {
         $id: 'HttpNotFoundError',
         type: 'object',
         properties: {
-            name: { type: 'string' },
-            message: { type: 'string' },
-            statusCode: { type: 'number' },
+            name: { type: 'string', example: 'HttpNotFoundError' },
+            message: { type: 'string', example: 'Not found' },
+            statusCode: { type: 'number', example: 404 },
             data: { type: 'object' },
         },
     };

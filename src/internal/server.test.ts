@@ -27,7 +27,7 @@ describe('server', () => {
 
         const response = await server.app.inject({
             method: 'GET',
-            url: '/health',
+            url: '/api/health',
         });
 
         expect(response.statusCode).toBe(200);

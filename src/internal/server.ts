@@ -117,9 +117,15 @@ class FastifyServer<T extends RouteGenericInterface>
             routePrefix: '/docs',
         });
 
-        //Register all the routes
+        //Register API routes
         for (const route of routes) {
-            this._app.route(route);
+            this._app.register(
+                (instance, _, done) => {
+                    instance.route(route);
+                    done();
+                },
+                { prefix: '/api' }
+            );
         }
     }
 

@@ -41,7 +41,7 @@ describe('Test user handler', () => {
                 server as FastifyServer<{ Params: unknown }>
             ).app.inject({
                 method: 'GET',
-                url: '/users/1',
+                url: '/api/users/1',
             });
 
             expect(response.statusCode).toBe(200);
@@ -62,7 +62,7 @@ describe('Test user handler', () => {
                 server as FastifyServer<{ Params: unknown }>
             ).app.inject({
                 method: 'GET',
-                url: '/users/1',
+                url: '/api/users/1',
             });
 
             expect(response.statusCode).toBe(404);
@@ -80,7 +80,7 @@ describe('Test user handler', () => {
                 server as FastifyServer<{ Params: unknown }>
             ).app.inject({
                 method: 'GET',
-                url: '/users/1',
+                url: '/api/users/1',
             });
 
             expect(response.statusCode).toBe(500);

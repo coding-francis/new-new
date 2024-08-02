@@ -1,5 +1,6 @@
 import { DataLayer } from '../data';
 import { InvalidInputError, RecordNotFoundError } from '../data/errors';
+import { Logger } from '../internal/logger';
 import { BaseServiceLayerError, DataValidationError } from './errors';
 import { initializeServices } from './initializer';
 
@@ -12,11 +13,12 @@ describe('UserService', () => {
             },
         };
 
-        const logger = {
+        const logger: Logger = {
             error: jest.fn(),
             info: jest.fn(),
             debug: jest.fn(),
             warn: jest.fn(),
+            child: jest.fn(),
         };
 
         const services = initializeServices(dataLayer, logger);

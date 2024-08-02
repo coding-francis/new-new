@@ -1,0 +1,11 @@
+{
+    "verbose": true,
+    "ignore": ["*.test.js", "**/fixtures/**"],
+    "watch": ["src", "bin"],
+    "ext": "ts,js,json",
+    "exec": "ts-node --project tsconfig.json bin/index.ts | pino-pretty",
+    "delay": "2500",
+    "env": {
+        "NODE_ENV": "development"
+    }
+}

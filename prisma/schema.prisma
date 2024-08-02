@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
 datasource postgresql {
@@ -13,9 +14,12 @@ datasource postgresql {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
-  id    Int     @id @default(autoincrement())
+  id    Int     @id @default(autoincrement()) @map("id")
   email String  @unique
   name  String?
   password String
+
+  @@map("users")
 }

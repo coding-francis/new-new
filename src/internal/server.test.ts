@@ -11,17 +11,16 @@ describe('server', () => {
             },
         };
 
-        const server = new FastifyServer([route]);
-
+        const server = new FastifyServer([route], false);
         expect.setState({ server });
     });
 
     test('Expert server to receive basic GET /health and return ok', async () => {
-        const server = expect.getState().server as FastifyServer;
+        const server = expect.getState().server;
 
         const response = await server.app.inject({
             method: 'GET',
-            url: '/health',
+            url: '/api/health',
         });
 
         expect(response.statusCode).toBe(200);

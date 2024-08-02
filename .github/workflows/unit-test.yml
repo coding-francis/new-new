@@ -8,6 +8,13 @@ on:
     branches:
       - main
 
+env:
+  CI: true
+  DATABASE_PASSWORD: randompassword
+  DATABASE_NAME: testdb
+  DATABASE_URL: postgresql://postgres:testpassword@localhost:5433/testdb
+  APP_PORT: 8000
+
 jobs:
   run-unit-tests:
     name: Run Unit Tests
@@ -24,9 +31,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Make sure docker-compose is installed
+        uses: KengoTODA/actions-setup-docker-compose@v1
+        with:
+          version: '2.14.2'
 
       - name: Install dependencies
         run: npm install
 
+      - name: Install ariga/atlas-go
+        uses: ariga/setup-atlas@v0
+        
       - name: Run unit tests
         run: npm run test

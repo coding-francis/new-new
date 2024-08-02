@@ -9,7 +9,7 @@ export interface DataBase<T> {
 class PrismaDatabase implements DataBase<PrismaClient> {
     private prisma: PrismaClient;
 
-    constructor(dbUrl: string) {
+    constructor(dbUrl?: string) {
         this.prisma = new PrismaClient({
             datasourceUrl: dbUrl,
         });

@@ -36,8 +36,8 @@ export class UserService implements UserServiceLayer {
             return new UserResource(user);
         } catch (error) {
             this.logger.error(
-                `Error occurred while creating user in data layer`,
-                error as object
+                error as object,
+                `Error occurred while creating user in data layer`
             );
             const err = handleServiceError(error as Error);
 
@@ -51,8 +51,8 @@ export class UserService implements UserServiceLayer {
             return new UserResource(user);
         } catch (error) {
             this.logger.error(
-                `Error occurred while getting user with id ${id} in data layer`,
-                error as object
+                error as object,
+                `Error occurred while getting user with id ${id} in data layer`
             );
             const err = handleServiceError(error as Error);
             throw err;

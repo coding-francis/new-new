@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Make sure docker-compos is installed
+      - name: Make sure docker-compose is installed
         uses: KengoTODA/actions-setup-docker-compose@v1
         with:
           version: '2.14.2'

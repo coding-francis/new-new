@@ -1,5 +1,6 @@
 import FastifyServer from '../../../internal/server';
 import { CreateUserPayload, Service } from '../../../services';
+import { DataValidationError } from '../../../services/errors';
 import createUserRouteOption from './create-user.handler';
 
 describe('CreateUserHandler', () => {
@@ -50,7 +51,7 @@ describe('CreateUserHandler', () => {
         expect(response.json()).toEqual(user);
     });
 
-    test('Should return user and 201 response ', async () => {
+    test('Should 500 response ', async () => {
         const { mockedService, server } = expect.getState();
 
         const payload: CreateUserPayload = {
@@ -70,5 +71,27 @@ describe('CreateUserHandler', () => {
         });
 
         expect(response.statusCode).toBe(500);
+    });
+
+    test('Should 400 response ', async () => {
+        const { mockedService, server } = expect.getState();
+
+        const payload: CreateUserPayload = {
+            name: 'John Doe',
+            email: 'text@test.com',
+            password: 'password123',
+        };
+
+        jest.spyOn(mockedService.UserService, 'createUser').mockRejectedValue(
+            new DataValidationError('Invalid data')
+        );
+
+        const response = await server.app.inject({
+            method: 'POST',
+            url: '/api/users',
+            payload,
+        });
+
+        expect(response.statusCode).toBe(400);
     });
 });

@@ -45,7 +45,7 @@ jobs:
             # Run Linters
             if [ "${{ matrix.job }}" == "linters" ]; then
             npm run lint
-            
+
             # Run Tests
             elif [ "${{ matrix.job }}" == "unit-tests" ]; then
                 npm run test:cov
@@ -68,7 +68,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./coverage-unit
-          publish_branch: gh-pages
+          publish_branch: main
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Deploy Jest coverage for tag ${{ github.ref_name }}'

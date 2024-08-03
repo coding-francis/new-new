@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-reports
-          path: coverage-unit/*
+          path: coverage/*
 
   deploy-coverage:
     name: Deploy Coverage
@@ -73,7 +73,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-reports
-          path: coverage-unit
+          path: coverage
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

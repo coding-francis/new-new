@@ -7,7 +7,7 @@
     "inttest": "TEST_TYPE=integration jest",
     "build": "rimraf dist && tsc",
     "test:cov": "jest --coverage",
-    "inttest:cov": "TEST_TYPE=integration jest --coverage",
+    "inttest:cov": "npm run db:setup:test && TEST_TYPE=integration jest --coverage && docker-compose down",
     "start": "nodemon",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",

@@ -42,16 +42,17 @@ jobs:
 
       - name: Run ${{ matrix.job }}
         run: |
-            # Run Linters
-            if [ "${{ matrix.job }}" == "linters" ]; then
+          # Run Linters
+          if [ "${{ matrix.job }}" == "linters" ]; then
             npm run lint
 
-            # Run Tests
-            elif [ "${{ matrix.job }}" == "unit-tests" ]; then
-                npm run test:cov
-            elif [ "${{ matrix.job }}" == "integration-tests" ]; then
-                npm run inttest:cov
-            fi
+          # Run Unit Tests
+          elif [ "${{ matrix.job }}" == "unit-tests" ]; then
+            npm run test:cov
+
+          # Run Integration Tests
+          elif [ "${{ matrix.job }}" == "integration-tests" ]; then
+            npm run inttest:cov
 
       - name: Upload coverage reports
         if: ${{ matrix.job == 'unit-tests' }}
@@ -60,8 +61,15 @@ jobs:
           name: coverage-reports
           path: coverage/*
 
-  deploy-coverage:
-    name: Deploy Coverage
+      - name: Upload integration coverage reports
+        if: ${{ matrix.job == 'integration-tests' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: integration-coverage-reports
+          path: coverage-integration/*
+
+  deploy-unit-coverage:
+    name: Deploy Unit Test Coverage
     runs-on: ubuntu-latest
     needs: run-tests
 
@@ -81,6 +89,33 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: coverage/lcov-report
           publish_branch: gh-pages
+          dest_dir: unit-tests
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy Jest coverage for tag ${{ github.ref_name }}'
+          commit_message: 'Deploy Jest unit test coverage for tag ${{ github.ref_name }}'
+
+  deploy-integration-coverage:
+    name: Deploy Integration Test Coverage
+    runs-on: ubuntu-latest
+    needs: run-tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download integration coverage reports
+        uses: actions/download-artifact@v2
+        with:
+          name: integration-coverage-reports
+          path: coverage-integration
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: coverage-integration/lcov-report
+          publish_branch: gh-pages
+          dest_dir: integration-tests
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy Jest integration test coverage for tag ${{ github.ref_name }}'

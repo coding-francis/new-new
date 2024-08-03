@@ -18,8 +18,8 @@
     "postinttest": "docker-compose down",
     "dev": "docker-compose up app db -d",
     "dev:stop": "docker-compose down",
-    "db:migrate:test": "atlas schema apply --auto-approve -u postgresql://postgres:testpassword@localhost:5433/testdb?sslmode=disable --to file://migrations/schema.hcl",
-    "db:setup:test": "docker-compose up  -d test_db && sleep 2 && npm run db:migrate:test"
+    "db:migrate:test": "atlas schema apply --auto-approve -u postgresql://postgres:B0$$m@n@localhost:5433/server_code?sslmode=disable --to file://migrations/schema.hcl",
+    "db:setup:test": "sudo docker-compose up  -d test_db && sleep 2 && npm run db:migrate:test"
   },
   "keywords": [],
   "author": "",

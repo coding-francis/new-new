@@ -1,0 +1,79 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  CI: true
+  DATABASE_PASSWORD: randompassword
+  DATABASE_NAME: testdb
+  DATABASE_URL: postgresql://postgres:testpassword@localhost:5433/testdb
+  APP_PORT: 8000
+
+jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job: [unit-tests, integration-tests]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Make sure docker-compose is installed
+        uses: KengoTODA/actions-setup-docker-compose@v1
+        with:
+          version: '2.14.2'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install ariga/atlas-go
+        uses: ariga/setup-atlas@v0
+
+      - name: Run ${{ matrix.job }}
+        run: |
+          if [ "${{ matrix.job }}" == "unit-tests" ]; then
+            npm run test
+          elif [ "${{ matrix.job }}" == "integration-tests" ]; then
+            npm run inttest
+          fi
+
+  deploy-coverage:
+    name: Deploy Coverage
+    runs-on: ubuntu-latest
+    needs: run-tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate coverage report
+        run: npm run coverage
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy Jest coverage for tag ${{ github.ref_name }}'

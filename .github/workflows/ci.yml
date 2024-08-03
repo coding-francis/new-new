@@ -79,16 +79,25 @@ jobs:
         with:
           name: integration-coverage-reports
           path: coverage-integration/*
+
   deploy-coverage-report:
     name: Deploy Coverage Report
     runs-on: ubuntu-latest
     needs: run-tests
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Install curl
         run: sudo apt-get install -y curl
+    
+      - name: Download coverage reports
+        uses: actions/download-artifact@v2
+        with:
+            name: coverage-reports
+            path: coverage
 
       - name: Deploy coverage reports to Cloudinary
-        if: ${{ matrix.job == 'unit-tests' }}
         run: |
           for file in coverage/*; do
             curl -X POST "https://api.cloudinary.com/v1_1/${{ secrets.CLOUDINARY_CLOUD_NAME }}/upload" \
@@ -97,12 +106,12 @@ jobs:
               -F "upload_preset=unit-test-preset"
           done
 
-      - name: Deploy integration coverage reports to Cloudinary
-        if: ${{ matrix.job == 'integration-tests' }}
-        run: |
-          for file in coverage-integration/*; do
-            curl -X POST "https://api.cloudinary.com/v1_1/${{ secrets.CLOUDINARY_CLOUD_NAME }}/upload" \
-              -u "${{ secrets.CLOUDINARY_API_KEY }}:${{ secrets.CLOUDINARY_API_SECRET }}" \
-              -F "file=@$file" \
-              -F "upload_preset=integration-test-preset"
-          done
+    #  - name: Deploy integration coverage reports to Cloudinary
+    #    if: ${{ matrix.job == 'integration-tests' }}
+    #    run: |
+    #      for file in coverage-integration/*; do
+    #        curl -X POST "https://api.cloudinary.com/v1_1/${{ secrets.CLOUDINARY_CLOUD_NAME }}/upload" \
+    #          -u "${{ secrets.CLOUDINARY_API_KEY }}:${{ secrets.CLOUDINARY_API_SECRET }}" \
+    #          -F "file=@$file" \
+    #          -F "upload_preset=integration-test-preset"
+    #      done

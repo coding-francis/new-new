@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        job: [unit-tests, integration-tests]
+        job: [unit-tests, integration-tests, linters]
 
     steps:
       - name: Checkout code
@@ -42,11 +42,16 @@ jobs:
 
       - name: Run ${{ matrix.job }}
         run: |
-          if [ "${{ matrix.job }}" == "unit-tests" ]; then
+            # Run Linters
+            npm run linters
+            
+            # Run Tests
+            if [ "${{ matrix.job }}" == "unit-tests" ]; then
             npm run test
-          elif [ "${{ matrix.job }}" == "integration-tests" ]; then
+            elif [ "${{ matrix.job }}" == "integration-tests" ]; then
             npm run inttest
-          fi
+            fi
+
 
   deploy-coverage:
     name: Deploy Coverage

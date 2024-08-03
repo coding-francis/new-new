@@ -53,6 +53,7 @@ jobs:
           # Run Integration Tests
           elif [ "${{ matrix.job }}" == "integration-tests" ]; then
             npm run inttest:cov
+          fi
 
       - name: Upload coverage reports
         if: ${{ matrix.job == 'unit-tests' }}

@@ -53,6 +53,12 @@ jobs:
                 npm run inttest:cov
             fi
 
+      - name: Upload coverage reports
+        if: ${{ matrix.job == 'unit-tests' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-reports
+          path: coverage-unit/*
 
   deploy-coverage:
     name: Deploy Coverage
@@ -63,11 +69,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download coverage reports
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-reports
+          path: coverage-unit
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: coverage-unit/lcov-report/index.html
+          publish_dir: coverage/lcov-report
           publish_branch: main
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'

@@ -43,13 +43,14 @@ jobs:
       - name: Run ${{ matrix.job }}
         run: |
             # Run Linters
-            npm run linters
+            if [ "${{ matrix.job }}" == "linters" ]; then
+            npm run lint
             
             # Run Tests
-            if [ "${{ matrix.job }}" == "unit-tests" ]; then
-            npm run test:cov
+            elif [ "${{ matrix.job }}" == "unit-tests" ]; then
+                npm run test:cov
             elif [ "${{ matrix.job }}" == "integration-tests" ]; then
-            npm run inttest:cov
+                npm run inttest:cov
             fi
 
 

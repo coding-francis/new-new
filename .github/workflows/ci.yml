@@ -104,20 +104,43 @@ jobs:
 
       - name: Deploy coverage reports to Cloudinary
         run: |
-          for file in coverage/*; do
-            curl -X POST "https://api.cloudinary.com/v1_1/${{ env.CLOUDINARY_CLOUD_NAME }}/upload" \
-              -u "${{ env.CLOUDINARY_API_KEY }}:${{ env.CLOUDINARY_API_SECRET }}" \
-              -F "file=@$file" \
-              -F "upload_preset=${{ env.CLOUDINARY_UPLOAD_PRESET }}" \
-              -F "folder=${{ env.CLOUDINARY_FOLDER }}"
-          done
+            #!/bin/bash
 
-    #  - name: Deploy integration coverage reports to Cloudinary
-    #    if: ${{ matrix.job == 'integration-tests' }}
-    #    run: |
-    #      for file in coverage-integration/*; do
-    #        curl -X POST "https://api.cloudinary.com/v1_1/${{ env.CLOUDINARY_CLOUD_NAME }}/upload" \
-    #          -u "${{ env.CLOUDINARY_API_KEY }}:${{ env.CLOUDINARY_API_SECRET }}" \
-    #          -F "upload_preset=${{ env.CLOUDINARY_UPLOAD_PRESET }}" \
-    #          -F "folder=${{ env.CLOUDINARY_FOLDER }}"
-    #      done
+            # Directory containing the Jest coverage report
+            COVERAGE_DIR="coverage"
+            CLOUDINARY_FOLDER="coverage_report"
+
+            # Function to upload a file to Cloudinary
+            upload_file() {
+            local file_path=$1
+            local cloudinary_folder=$2
+
+            response=$(curl -s -X POST "https://api.cloudinary.com/v1_1/$CLOUDINARY_CLOUD_NAME/auto/upload" \
+                -H "Content-Type: multipart/form-data" \
+                -F "file=@$file_path" \
+                -F "folder=$cloudinary_folder" \
+                -F "api_key=$CLOUDINARY_API_KEY" \
+                -F "timestamp=$(date +%s)" \
+                -F "signature=$(echo -n "folder=$cloudinary_folder&timestamp=$(date +%s)$CLOUDINARY_API_SECRET" | sha1sum | awk '{print $1}')" )
+
+            echo "Uploaded $file_path to $cloudinary_folder"
+            }
+
+            # Function to recursively upload all files in a directory
+            upload_directory() {
+            local dir=$1
+            local cloudinary_folder=$2
+
+            for file in "$dir"/*; do
+                if [[ -d $file ]]; then
+                upload_directory "$file" "$cloudinary_folder/$(basename "$file")"
+                else
+                upload_file "$file" "$cloudinary_folder"
+                fi
+            done
+            }
+
+            # Upload the coverage directory
+            upload_directory "$COVERAGE_DIR" "$CLOUDINARY_FOLDER"
+
+            echo "All files uploaded successfully!"

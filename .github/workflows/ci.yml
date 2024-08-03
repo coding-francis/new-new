@@ -22,6 +22,11 @@ env:
   DATABASE_NAME: testdb
   DATABASE_URL: postgresql://postgres:testpassword@localhost:5433/testdb
   APP_PORT: 8000
+  CLOUDINARY_CLOUD_NAME: ${{secrets.CLOUDINARY_CLOUD_NAME}}
+  CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
+  CLOUDINARY_API_SECRET: ${{secrets.CLOUDINARY_API_SECRET}}
+  CLOUDINARY_UPLOAD_PRESET: unit-test-preset
+  CLOUDINARY_FOLDER: unit-test
 
 jobs:
   run-tests:
@@ -100,18 +105,19 @@ jobs:
       - name: Deploy coverage reports to Cloudinary
         run: |
           for file in coverage/*; do
-            curl -X POST "https://api.cloudinary.com/v1_1/${{ secrets.CLOUDINARY_CLOUD_NAME }}/upload" \
-              -u "${{ secrets.CLOUDINARY_API_KEY }}:${{ secrets.CLOUDINARY_API_SECRET }}" \
+            curl -X POST "https://api.cloudinary.com/v1_1/${{ env.CLOUDINARY_CLOUD_NAME }}/upload" \
+              -u "${{ env.CLOUDINARY_API_KEY }}:${{ env.CLOUDINARY_API_SECRET }}" \
               -F "file=@$file" \
-              -F "upload_preset=unit-test-preset"
+            #  -F "upload_preset=${{ env.CLOUDINARY_UPLOAD_PRESET }}" \
+              -F "folder=${{ env.CLOUDINARY_FOLDER }}"
           done
 
     #  - name: Deploy integration coverage reports to Cloudinary
     #    if: ${{ matrix.job == 'integration-tests' }}
     #    run: |
     #      for file in coverage-integration/*; do
-    #        curl -X POST "https://api.cloudinary.com/v1_1/${{ secrets.CLOUDINARY_CLOUD_NAME }}/upload" \
-    #          -u "${{ secrets.CLOUDINARY_API_KEY }}:${{ secrets.CLOUDINARY_API_SECRET }}" \
-    #          -F "file=@$file" \
-    #          -F "upload_preset=integration-test-preset"
+    #        curl -X POST "https://api.cloudinary.com/v1_1/${{ env.CLOUDINARY_CLOUD_NAME }}/upload" \
+    #          -u "${{ env.CLOUDINARY_API_KEY }}:${{ env.CLOUDINARY_API_SECRET }}" \
+    #          -F "upload_preset=${{ env.CLOUDINARY_UPLOAD_PRESET }}" \
+    #          -F "folder=${{ env.CLOUDINARY_FOLDER }}"
     #      done

@@ -11,7 +11,7 @@ const config: Config = {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     coverageDirectory: isIntegrationTest
         ? './coverage-integration'
-        : './coverage-unit',
+        : './coverage',
     maxWorkers: isIntegrationTest ? 1 : 5, //Integration tests should run sequentially. Cleanup phase is needed to create fresh database for next test
 };
 

@@ -80,7 +80,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: coverage/lcov-report
-          publish_branch: main
+          publish_branch: gh-pages
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Deploy Jest coverage for tag ${{ github.ref_name }}'

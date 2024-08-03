@@ -47,9 +47,9 @@ jobs:
             
             # Run Tests
             if [ "${{ matrix.job }}" == "unit-tests" ]; then
-            npm run test
+            npm run test:cov
             elif [ "${{ matrix.job }}" == "integration-tests" ]; then
-            npm run inttest
+            npm run inttest:cov
             fi
 
 
@@ -62,22 +62,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Generate coverage report
-        run: npm run coverage
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage
+          publish_dir: ./coverage-unit
           publish_branch: gh-pages
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'

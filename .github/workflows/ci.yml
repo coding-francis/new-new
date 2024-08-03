@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    tags:
-      - 'v*'
-      
+    branches:
+        main
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -79,7 +79,10 @@ jobs:
         with:
           name: integration-coverage-reports
           path: coverage-integration/*
-
+  deploy-coverage-report:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
       - name: Install curl
         run: sudo apt-get install -y curl
 

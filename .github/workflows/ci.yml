@@ -108,7 +108,7 @@ jobs:
             curl -X POST "https://api.cloudinary.com/v1_1/${{ env.CLOUDINARY_CLOUD_NAME }}/upload" \
               -u "${{ env.CLOUDINARY_API_KEY }}:${{ env.CLOUDINARY_API_SECRET }}" \
               -F "file=@$file" \
-            #  -F "upload_preset=${{ env.CLOUDINARY_UPLOAD_PRESET }}" \
+              -F "upload_preset=${{ env.CLOUDINARY_UPLOAD_PRESET }}" \
               -F "folder=${{ env.CLOUDINARY_FOLDER }}"
           done
 
